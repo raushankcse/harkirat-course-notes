@@ -1,0 +1,39 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+  width: 100%;
+  display: flex;
+
+}
+
+
+.side-bar{
+  width: 20%;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  padding: 20px;
+}
+
+
+
+.side-bar a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu{
+
+}
+
+.home-page{
+  width: 80%;
+
+
+  display: flex;
+  margin: 200px;
+
+}

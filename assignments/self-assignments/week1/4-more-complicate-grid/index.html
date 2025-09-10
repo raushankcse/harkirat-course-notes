@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid</title>
+  <style>
+    .container{
+      width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 10px;
+    }
+    .left{
+      background-color: red;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .right{
+      background-color: blue;
+      
+    }
+    .grid1{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div><h1>left</h1></div>
+      <div><h2>text text text text text text text text text text etext tex texte teet </h2></div>
+    </div>
+    <div class="right">
+      <div class="grid1">
+        <h2>Col 1</h2>
+        <h2>Col 2</h2>
+        <h2>Col 3</h2>
+        <h2>Col 1</h2>
+        <h2>Col 2</h2>
+        <h2>Col 3</h2>
+        <h2>Col 1</h2>
+        <h2>Col 2</h2>
+        <h2>Col 3</h2>
+      </div>
+      
+    </div>
+  </div>
+</body>
+</html>

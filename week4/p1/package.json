@@ -1,0 +1,20 @@
+{
+  "name": "week4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bye": "^1.0.1",
+    "chalk": "^5.6.0",
+    "commander": "^14.0.0",
+    "express": "^5.1.0",
+    "hello": "^0.6.2"
+  }
+}
