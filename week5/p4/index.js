@@ -11,7 +11,7 @@ function sum(hello){
 
 const promise = new Promise(sum)
   .then(function hii(){
-  console.log("hello");
+  console.log("hello")
   
 })
 
