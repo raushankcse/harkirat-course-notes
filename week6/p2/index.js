@@ -1,15 +1,23 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
+const cors = require("")
 const JWT_SECRET = "ILOVEWEB"
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 
 const users = [];
 
 
+app.get("/", (req,res)=>{
+  res.sendFile("./public/index.html");
+})
+
 app.post("/register", (req,res)=>{
+  console.log(req);
+  
   const username = req.body.username;
   const password = req.body.password;
 
@@ -19,7 +27,7 @@ app.post("/register", (req,res)=>{
   })
 
   res.json({
-    "message": "user signed up"
+    message: "user signed up"
   })
 
 
@@ -52,14 +60,31 @@ app.post("/login", (req, res)=>{
 })
 
 
-app.get("/me",(req, res)=>{
-  const token = req.headers.authorization;
+function auth(req, res, next){
 
+  const token = req.headers.authorization;
   const decodeToken = jwt.verify(token, JWT_SECRET);
 
   if(decodeToken.username){
+    req.username = decodeToken.username;
+    next();
+  }else{
+    res.json({
+      message: "user not logged in!"
+    })
+  }
+}
+
+
+
+
+
+app.get("/me",auth,(req, res)=>{
+
+  const username = req.username;
+
     const user = users.find(u=>{
-      if(u.username==decodeToken.username){
+      if(u.username==username){
         return true;
       }
     })
@@ -68,14 +93,30 @@ app.get("/me",(req, res)=>{
       username: user.username,
       password: user.password
     })
-  }else{
-    res.json({
-      message: "token unavailable!"
-    })
-  }
+
 
 
 })
+
+
+app.get("/todos",auth, (req,res)=>{
+  
+})
+app.post("/todos", auth, (req,res)=>{
+
+})
+app.delete("/todos",auth, (req,res)=>{
+
+})
+app.put("/todos",auth, (req,res)=>{
+
+})
+
+
+
+
+
+
 
 
 app.listen(3000);
