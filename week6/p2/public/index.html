@@ -15,12 +15,11 @@
   <div>
     <label for="">signin</label>
     <input type="username" name="username" id="signin" placeholder="username">
-    <input type="password" name="password" id="singin-password" placeholder="password">
+    <input type="password" name="password" id="signin-password" placeholder="password">
     <button onclick="signin()">Submit</button>
   </div>
   <div>
-    User Info:
-    <div id="info"></div>
+    <div id="info"> </div>
   </div>
   <div>
     <button onclick="logout()">Logout</button>
@@ -33,12 +32,20 @@
     async function signup(){
       const username = document.getElementById("signup").value;
       const password = document.getElementById("signup-password").value;
+      console.log(JSON.stringify({
+          username: username,
+          password: password
+        }));
+      
       const response = await fetch("http://localhost:3000/register",{
         method: "POST",
         body: JSON.stringify({
           username: username,
           password: password
-        })
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
 
       const data = await response.json();
@@ -46,6 +53,53 @@
       alert(data.message);
 
     }
+
+
+    async function signin() {
+      const username = document.getElementById("signin").value;
+      const password = document.getElementById("signin-password").value;
+      const response = await fetch("http://localhost:3000/login",{
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      })
+
+      const data = await response.json();
+      
+
+      localStorage.setItem("token", data.token);
+      alert("You are sign in!");
+      console.log(data.token);
+      
+      
+    }
+
+
+    async function getUserInfo() {
+      const response = await fetch("http://localhost:3000/me",{
+        method: "GET",
+        headers: {
+          "authorization" : localStorage.getItem("token"),
+        }
+
+      })
+
+      const data = await response.json();
+
+      document.getElementById("info").innerHTML = "username: " + data.username + ", password: " + data.password; 
+      
+    }
+
+    getUserInfo();
+
+
+
+
 
 
   </script>

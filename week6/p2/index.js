@@ -1,10 +1,12 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
-const cors = require("")
+const cors = require("cors")
 const JWT_SECRET = "ILOVEWEB"
 
 const app = express();
+
 app.use(express.json());
+
 app.use(cors());
 
 
@@ -12,11 +14,13 @@ const users = [];
 
 
 app.get("/", (req,res)=>{
-  res.sendFile("./public/index.html");
+  res.sendFile(__dirname+"/public/index.html");
+
+  
 })
 
 app.post("/register", (req,res)=>{
-  console.log(req);
+
   
   const username = req.body.username;
   const password = req.body.password;
