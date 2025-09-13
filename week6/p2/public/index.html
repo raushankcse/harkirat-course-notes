@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>auth</title>
+</head>
+<body>
+  <div>
+    <label for="">signup</label>
+    <input type="username" name="username" id="signup" placeholder="username">
+    <input type="password" name="password" id="signup-password" placeholder="password">
+    <button onclick="signup()">Submit</button>
+  </div>
+  <div>
+    <label for="">signin</label>
+    <input type="username" name="username" id="signin" placeholder="username">
+    <input type="password" name="password" id="singin-password" placeholder="password">
+    <button onclick="signin()">Submit</button>
+  </div>
+  <div>
+    User Info:
+    <div id="info"></div>
+  </div>
+  <div>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+
+
+  <script>
+
+    async function signup(){
+      const username = document.getElementById("signup").value;
+      const password = document.getElementById("signup-password").value;
+      const response = await fetch("http://localhost:3000/register",{
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      })
+
+      const data = await response.json();
+
+      alert(data.message);
+
+    }
+
+
+  </script>
+</body>
+</html>
