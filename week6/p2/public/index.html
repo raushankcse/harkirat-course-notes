@@ -6,22 +6,23 @@
   <title>auth</title>
 </head>
 <body>
-  <div>
+  <div id="signup-input">
     <label for="">signup</label>
     <input type="username" name="username" id="signup" placeholder="username">
     <input type="password" name="password" id="signup-password" placeholder="password">
     <button onclick="signup()">Submit</button>
   </div>
-  <div>
+  <div id="signin-input">
     <label for="">signin</label>
     <input type="username" name="username" id="signin" placeholder="username">
     <input type="password" name="password" id="signin-password" placeholder="password">
     <button onclick="signin()">Submit</button>
   </div>
-  <div>
+  <div id="information">
+    User Info:
     <div id="info"> </div>
   </div>
-  <div>
+  <div id="logout">
     <button onclick="logout()">Logout</button>
   </div>
 
@@ -76,28 +77,53 @@
       alert("You are sign in!");
       console.log(data.token);
       
+      window.location.reload();
       
     }
 
 
     async function getUserInfo() {
-      const response = await fetch("http://localhost:3000/me",{
-        method: "GET",
-        headers: {
-          "authorization" : localStorage.getItem("token"),
-        }
-
-      })
-
-      const data = await response.json();
-
-      document.getElementById("info").innerHTML = "username: " + data.username + ", password: " + data.password; 
       
+
+      try {
+        const response = await fetch("http://localhost:3000/me",{
+          method: "GET",
+          headers: {
+            "authorization" : localStorage.getItem("token"),
+          }
+
+        })
+
+        const data = await response.json();
+
+        document.getElementById("info").innerHTML = "username: " + data.username + ", password: " + data.password; 
+        
+      } catch (error) {
+
+        console.log("error: " + error)
+      }
+      
+      if(localStorage.getItem("token")){
+        document.getElementById("signin-input").style.display = "none";
+        document.getElementById("signup-input").style.display = "none";
+      }else{
+        document.getElementById("information").style.display = "none";
+        document.getElementById("logout").style.display = "none";
+      }
+
+
+
     }
 
     getUserInfo();
 
+    function logout(){
+      localStorage.removeItem("token")
+      window.location.reload();
+    }
 
+
+     
 
 
 

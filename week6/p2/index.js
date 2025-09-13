@@ -67,16 +67,23 @@ app.post("/login", (req, res)=>{
 function auth(req, res, next){
 
   const token = req.headers.authorization;
-  const decodeToken = jwt.verify(token, JWT_SECRET);
-
-  if(decodeToken.username){
-    req.username = decodeToken.username;
-    next();
-  }else{
+  try {
+    const decodeToken = jwt.verify(token, JWT_SECRET);
+    if(decodeToken.username){
+      req.username = decodeToken.username;
+      next();
+    }else{
+      res.json({
+        message: "user not logged in!"
+      })
+    }
+    
+  } catch (error) {
     res.json({
-      message: "user not logged in!"
+      error: error
     })
   }
+
 }
 
 
