@@ -53,8 +53,8 @@ app.post("/login", (req, res)=>{
   if(user){
     const token = jwt.sign({
       username: username
-    },JWT_SECRET)
-
+    },JWT_SECRET, {expiresIn: "1h"})
+  
     res.json({token: token})
   }else{
     res.json("user not found, first register");
