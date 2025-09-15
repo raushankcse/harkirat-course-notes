@@ -2,20 +2,51 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt");
+const {z} = require("zod");
 
 
 const JWTSECRET = "hellofolks"
 const {UserModel, TodoModel} = require("./db")
 
-mongoose.connect("");
+mongoose.connect("mongodb+srv://raushankcse_db_user:01032003@cluster0.igfpjot.mongodb.net/todo");
 
 const app = express();
 
 app.use(express.json());
 
-
+// .regex(/^([?=.*?A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]){3,}$/,'must contain this format')
 
 app.post("/signup", async (req, res)=>{
+  // input validation
+
+  const requiredBody = z.object({
+    email: z.string().min(3).max(100).email(),
+    name: z.string().min(3).max(100),
+    password: z.string().min(3).max(100)
+  })
+
+  
+  const parsed = requiredBody.safeParse(req.body);
+  /*
+    {
+      success: ture | false
+      date: {}
+      errors: []
+    }
+
+
+  */
+
+
+
+  if(!parsed.success){
+    res.json({
+      message: "Incorrect foramt",
+      error : parsed.error
+    })
+    return;
+  }
+
 
   const email = req.body.email;
   const password = req.body.password;
