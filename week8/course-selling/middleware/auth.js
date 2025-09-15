@@ -1,9 +1,22 @@
-
+const jwt = require("jsonwebtoken");
 
 async function authMiddleware(req, res, next){
-  const email = req.body.email;
-  const password = req.body.password;
-  
+
+  const token = req.headers.authorization
+  try {
+    const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
+    
+    req.id = decodeToken.id;
+
+    next();
+    
+  } catch (error) {
+    res.json({
+      message: "authentication expire login again!"
+    })
+  }
+
+
 
 }
 

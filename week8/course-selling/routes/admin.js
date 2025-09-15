@@ -1,9 +1,11 @@
-const {Router } = require("express")
+const express = require("express")
+const Router = express.Router;
 const adminRouter = Router();
 const {adminModel} = require("../db");
 const {z, email} = require("zod")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { authMiddleware } = require("../middleware/auth");
 
 
 
@@ -111,22 +113,22 @@ adminRouter.post("/signin", async (req, res)=>{
 })
 
 
-// adminRouter.use(adminMiddleware);
+adminRouter.use(authMiddleware);
 
-adminRouter.post("/",(req, res)=>{
+adminRouter.post("/course",(req, res)=>{
   res.send({
     message: "admin end point"
   })
 })
 
 
-adminRouter.put("/",(req, res)=>{
+adminRouter.put("/course",(req, res)=>{
   res.send({
     message: "admin end point"
   })
 })
 
-adminRouter.get("/bulk",(req, res)=>{
+adminRouter.get("/course/bulk",(req, res)=>{
   res.send({
     message: "admin end point"
   })
