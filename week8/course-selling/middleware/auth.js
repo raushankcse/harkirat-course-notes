@@ -4,7 +4,7 @@ async function authMiddleware(req, res, next){
 
   const token = req.headers.authorization
   try {
-    const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodeToken = jwt.verify(token, process.env.JWT_SECRET_ADMIN);
     
     req.id = decodeToken.id;
 

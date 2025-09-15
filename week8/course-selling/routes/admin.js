@@ -94,7 +94,7 @@ adminRouter.post("/signin", async (req, res)=>{
 
     const token = jwt.sign({
       id : user._id
-    }, process.env.JWT_SECRET)
+    }, process.env.JWT_SECRET_ADMIN)
 
     res.json({
       message: "user logged in",
