@@ -115,12 +115,12 @@ adminRouter.post("/signin", async (req, res)=>{
 
 adminRouter.use(adminAuthMiddleware);
 
-adminRouter.post("/course",(req, res)=>{
+adminRouter.post("/course", async (req, res)=>{
 
   const adminId = req.id;
   const {title, description, imageUrl,price } = req.body;
 
-  const course = courseModel.create({
+  const course = await courseModel.create({
     title: title,
     description: description,
     imageUrl: imageUrl,
