@@ -9,6 +9,9 @@ courseRouter.post("/purchase", userAuthMiddleware, async (req, res)=>{
   const userId = req.id;
   const courseId = req.body.courseId;
 
+
+  // user must paid the price check it...
+
   await purchaseModel.create({
     userId,
     courseId
@@ -24,7 +27,7 @@ courseRouter.post("/purchase", userAuthMiddleware, async (req, res)=>{
 courseRouter.get("/preview", async(req, res)=>{
 
 
-  const courses = await courseModel.find();
+  const courses = await courseModel.find({});
 
 
 
