@@ -8,7 +8,7 @@ const {z} = require("zod");
 const JWTSECRET = "hellofolks"
 const {UserModel, TodoModel} = require("./db")
 
-mongoose.connect("mongodb+srv://raushankcse_db_user:01032003@cluster0.igfpjot.mongodb.net/todo");
+mongoose.connect("mongodb+srv://username:<password>@cluster111.igfpjot.mongodb.net/dbname");
 
 const app = express();
 

@@ -162,9 +162,16 @@ adminRouter.put("/course",async (req, res)=>{
 
 
 
-adminRouter.get("/course/bulk",(req, res)=>{
+adminRouter.get("/course/bulk", async (req, res)=>{
+  const adminId = req.id
+
+  const user = await courseModel.find({
+    creatorId: adminId
+  })
+
   res.send({
-    message: "admin end point"
+    user: user,
+    message: "data fetched"
   })
 })
 
