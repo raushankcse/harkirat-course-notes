@@ -1,11 +1,10 @@
 const express = require("express")
 const Router = express.Router;
-const adminRouter = Router();
 const {userModel} = require("../db");
 const {z} = require("zod")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { authMiddleware } = require("../middleware/auth");
+const { userAuthMiddleware } = require("../middleware/user.auth");
 
 
 
@@ -109,6 +108,10 @@ userRouter.post("/signin", async (req, res)=>{
 
 })
 
+
+
+
+userRouter.use(userAuthMiddleware);
 
 userRouter.get("/purchases",(req, res)=>{
   res.json({
