@@ -139,11 +139,28 @@ adminRouter.post("/course",(req, res)=>{
 
 adminRouter.put("/course",async (req, res)=>{
 
+  const adminId = req.id;
   const {title, description, imageUrl, price ,id} = req.body;
   
+  const findCourse = await courseModel.findOne({
+    _id:id,
+    creatorId: adminId
+  })
+
+  if(!findCourse){
+    res.json({
+      message: "no course found",
+
+    })
+    return;
+  }
+
+
+
   const course = await courseModel.updateOne(
     {
-      _id: id
+      _id: id,
+      creatorId: adminId
     },
     {
       title: title,
@@ -152,6 +169,8 @@ adminRouter.put("/course",async (req, res)=>{
       price: price
     }
   )
+
+  
 
 
   res.json({
