@@ -2,13 +2,16 @@ import { useEffect, useState } from "react"
 
 
 function App() {
+
+  const [render, setRender] = useState(false);
+
+
   return <div>
-    <h1>
-      Counter app
-    </h1>
 
 
-    <Counter></Counter>
+  {render ? <Counter></Counter>: null}
+
+  <button onClick={()=>{setRender(!render)}}> change render</button>
 
 
   </div>
@@ -19,27 +22,23 @@ function Counter(){
 
   const [count, setCount] = useState(0);
 
-  console.log("inside counter");
-  
+
+
   useEffect(function(){
+    console.log("hello");
     
-    setInterval(function(){
-      setCount(function(count){
-        return count+1;
+    return function(){
+      console.log("hii");
+      
+    }
+  },[])
 
-      })
-    }, 1000)
-    
-  }, []);
 
   
-
 
   return <div>
-    <h1>{count}</h1>
-    <button onClick={()=>setCount(count+1)}>Increase count</button>
-    <button onClick={()=>setCount(count-1)}>decrease count</button>
-    <button onClick={()=>setCount(0)}>Reset count</button>
+    Counter!{count}
+    <button onClick={()=>{setCount(count+1)}}>Count</button>
   </div>
 }
 
