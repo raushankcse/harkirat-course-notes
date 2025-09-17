@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 function App() {
@@ -6,7 +6,9 @@ function App() {
     <h1>
       Counter app
     </h1>
-    <Counter/>
+
+
+    <Counter></Counter>
 
 
   </div>
@@ -19,10 +21,18 @@ function Counter(){
 
   console.log("inside counter");
   
+  useEffect(function(){
+    
+    setInterval(function(){
+      setCount(function(count){
+        return count+1;
 
-  // setInterval(function(){
-  //   setCount(count+1);
-  // }, 1000)
+      })
+    }, 1000)
+    
+  }, []);
+
+  
 
 
   return <div>
